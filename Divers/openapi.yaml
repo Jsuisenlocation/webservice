@@ -1,0 +1,427 @@
+openapi: 3.0.0
+info:
+  title: Web Service Hichem - Dimitri
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:5000/
+paths:
+  /updateDrop/classeSelect:
+    get:
+      summary: Update the selected class for the price and the remaining place
+      operationId: updateSeleClasse
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: trainid
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: select_depart
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: select_arrivée
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: quantité
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  affiche_prix:
+                    type: integer
+                  quantite_limit:
+                    type: integer
+  /updateDrop/quantiteSelect:
+    get:
+      summary: Update the selected quantity for the price and the remaining place after
+      operationId: updateSeleAmount
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: trainid
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: select_depart
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: select_arrivée
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: quantité
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  affiche_prix:
+                    type: integer
+  /updateDrop/trainSelect:
+    get:
+      summary: Update the selected train to get the nb of remaining place and the price
+      operationId: updateSeleTrainId
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: select_depart
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: select_arrivée
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: trainid
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: quantité
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  quantite_limit:
+                    type: integer
+                  affiche_prix:
+                    type: integer
+  /updateDrop/arrivéSelect:
+    get:
+      summary: Permet d'obtenir les informations en fonctions des villes choisis
+      operationId: updateSeleArrive
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: select_depart
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: select_arrivée
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  train_opt:
+                    type: string
+                  classe_opt:
+                    type: string 
+  /updateDrop/departSelect:
+    get:
+      summary: Permet d'obtenir la ville d'arrivée
+      operationId: updateSeleDepart
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: select_depart
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  arrivé_option:
+                    type: string    
+  /updateDrop/dateSelect:
+    get:
+      summary: Update the selected date
+      operationId: updateSeleDate
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  depart_option:
+                    type: string       
+  /delete/{id}:
+    get:
+      summary: Delete a reservation
+      operationId: deleteReservation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /update:
+    post:
+      summary: Update a reservation
+      operationId: updateReservation
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: Nom
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: trainid
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: Depart_reserv
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: Arrivee_reserv
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: quantité
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string          
+  /insert:
+    post:
+      summary: Insert reservation data
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                Nom:
+                  type: string
+                  description: Name of the reservation
+                date:
+                  type: string
+                  description: Date of the reservation
+                trainid:
+                  type: string
+                  description: ID of the train
+                Depart_reserv:
+                  type: string
+                  description: Departure station of the reservation
+                Arrivee_reserv:
+                  type: string
+                  description: Arrival station of the reservation
+                quantité:
+                  type: integer
+                  description: Quantity of tickets
+                prix_tot:
+                  type: integer
+                  description: Total price of the reservation
+      responses:
+        '200':
+          description: Successfully inserted reservation data
+        '400':
+          description: Bad request       
+  /protected:
+    get:
+      summary: Sert a verifier l'authtification de l'utilisateur
+      responses:
+        '200':
+          description: Successfully redirected to home page
+        '401':
+          description: Unauthorized
+  /logout:
+    get:
+      summary: Logout the current user
+      responses:
+        '200':
+          description: Successfully logged out
+        '401':
+          description: Unauthorized
+  /login:
+    post:
+      summary: Login the user
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The username
+                password:
+                  type: string
+                  description: The password
+      responses:
+        '200':
+          description: Successfully logged in
+        '401':
+          description: Unauthorized
+  /:
+    get:
+      summary: Affiche la page principale 
+      responses:
+        '200':
+          description: Successfully retrieved data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reservation:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: integer
+                          description: The index of the reservation
+                        User:
+                          type: integer
+                          description: The ID of the user who made the reservation
+                        Nom:
+                          type: string
+                          description: The name of the reservation
+                        Date:
+                          type: string
+                          description: The date of the reservation
+                        ID:
+                          type: string
+                          description: The ID of the train
+                        depart_reserv:
+                          type: string
+                          description: The departure station of the reservation
+                        arrivee_reserv:
+                          type: string
+                          description: The arrival station of the reservation
+                        Quantite:
+                          type: integer
+                          description: The quantity of tickets
+                        Prix:
+                          type: integer
+                          description: The total price of the reservation
+                  train:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ID:
+                          type: string
+                          description: The ID of the train
+                        depart:
+                          type: string
+                          description: The departure station of the train
+                        arrivee:
+                          type: string
+                          description: The arrival station of the train
+                        date_depart:
+                          type: string
+                          description: The departure date of the train
+                        heure_depart:
+                          type: string
+                          description: The departure time of the train
+                        date_arrivee:
+                          type: string
+                          description: The arrival date of the train
+                        heure_arrivee:
+                          type: string
+                          description: The arrival time of the train
+                        nb_places:
+                          type: integer
+                          description: The number of available seats on the train
+                        prix:
+                          type: integer
+                          description: The price of a ticket on the train        
+                
