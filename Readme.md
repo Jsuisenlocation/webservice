@@ -3,13 +3,13 @@ Projet Web Service - Hichem & Dimitri
 
 ## Dépendences/Exigences (les dernières versions fonctionnent également)
 
-Python 3.10.7        --> Allez sur python.org/downloads/ 
-Flask 2.2.2          --> pip install Flask
-Flask-Cors 3.0.10    --> devrait s'installer avec Flask mais sinon : pip install -U flask-cors
-Flask-MySQLdb 1.0.1  --> pip install flask-mysqldb
-PyMySQL 1.0.2        --> pip install PyMySQL
-SQLAlchemy 1.4.46    --> pip install SQLAlchemy
-Pandas 1.5.2         --> pip install pandas
+1. Python 3.10.7        --> Allez sur python.org/downloads/ 
+2. Flask 2.2.2          --> pip install Flask
+3. Flask-Cors 3.0.10    --> devrait s'installer avec Flask mais sinon : pip install -U flask-cors
+4. Flask-MySQLdb 1.0.1  --> pip install flask-mysqldb
+5. PyMySQL 1.0.2        --> pip install PyMySQL
+6. SQLAlchemy 1.4.46    --> pip install SQLAlchemy
+7. Pandas 1.5.2         --> pip install pandas
 
 ## Installation
 
@@ -19,9 +19,9 @@ Pandas 1.5.2         --> pip install pandas
 
 ## Utilisation
 1. Créez votre base de données dans MySQL :
-	```sql
+```sql
    CREATE DATABASE web_service;  // avec le nom de la base de données définis dans les paramètres du code
-	```
+```
 2. Créer les table par défaut:
    N'oubliez pas de corrigé le nom d'utilisateur et le mot de passe de la DB dans le fichier.
 ```
