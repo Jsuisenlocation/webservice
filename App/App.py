@@ -1,8 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_mysqldb import MySQL
 from flask_login import LoginManager, UserMixin, login_required, current_user, login_user, logout_user
 import numpy as np
-import json
 
 
 setup = False

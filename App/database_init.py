@@ -1,5 +1,4 @@
 import pandas as pd
-from pandas.io import sql
 from sqlalchemy import create_engine
 
 connect = create_engine("mysql+pymysql://{utilisateur}:{mdp}@localhost/{nom_db}?charset=utf8"
