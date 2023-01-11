@@ -90,9 +90,8 @@ def login():
         # Affichez un message d'erreur
         flash("Nom de compte ou mot de passe incorrect", "error")
         return redirect(url_for("Acceuil"))
-    else:
-        # Affichez le formulaire de connexion
-        return redirect(url_for("Acceuil"))
+    # Affichez le formulaire de connexion
+    return redirect(url_for("Acceuil"))
 
 
 ############################################################
