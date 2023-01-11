@@ -73,10 +73,9 @@ def login():
             user = User(username)
             login_user(user)
             return redirect('/protected')
-        else:
-            # Affichez un message d'erreur
-            flash("Nom de compte ou mot de passe incorrect", 'error')
-            return redirect(url_for('Acceuil'))
+        # Affichez un message d'erreur
+        flash("Nom de compte ou mot de passe incorrect", 'error')
+        return redirect(url_for('Acceuil'))
     else:
         # Affichez le formulaire de connexion
         return redirect(url_for('Acceuil'))
