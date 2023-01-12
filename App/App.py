@@ -13,9 +13,9 @@ import numpy as np
 setup = False
 app = Flask(__name__)
 app.secret_key = "dev"
-app.config["MYSQL_HOST"] = "127.0.0.1"
-app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = ""
+app.config["MYSQL_HOST"] = "mysql_db"
+app.config["MYSQL_USER"] = "admin"
+app.config["MYSQL_PASSWORD"] = "root"
 app.config["MYSQL_DB"] = "webservice"
 mysql = MySQL(app)
 login_manager = LoginManager()
@@ -386,4 +386,4 @@ def update_seleClasse():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

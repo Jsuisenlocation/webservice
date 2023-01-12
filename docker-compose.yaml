@@ -1,0 +1,30 @@
+version: "3.3"
+services:
+  python_app:
+    container_name: "main"
+    build: ./
+    depends_on:
+      mysql_db:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - mysql
+    ports:
+      - 5000:5000
+    
+
+  mysql_db:
+    container_name: "mysql_db"
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=webservice
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=root
+    networks:
+      - mysql
+    ports:
+      - 3306:3306
+
+networks:
+  mysql: {}
