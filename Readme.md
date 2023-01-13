@@ -1,7 +1,7 @@
 Projet Web Service - Hichem & Dimitri
 # Système simple de réservation de billets de train avec Flask
 
-## Dépendences/Exigences (les dernières versions fonctionnent également)
+## Dépendences/Exigences (Pris en charge par docker, les dernières versions fonctionnent également)
 
 1. Python 3.10.7        --> Allez sur python.org/downloads/ 
 2. Flask 2.2.2          --> pip install Flask
@@ -15,29 +15,14 @@ Projet Web Service - Hichem & Dimitri
 
 1. Clonez le repo
 
-2. Installer les dépendences
-
-## Utilisation
-1. Créez votre base de données dans MySQL :
-```sql
-   CREATE DATABASE web_service;  // avec le nom de la base de données définis dans les paramètres du code
-```
-2. Créer les table par défaut:
-   N'oubliez pas de corrigé le nom d'utilisateur et le mot de passe de la DB dans le fichier.
-```
-   python database_init.py
-```
-3. Exécuter l'app:
-```
-   python App.py
-```
+2. Se positionné sur le répertoire racine et lancé : docker-compose up
 
 ## Auto-Evaluation
 1. Create REST Train Filtering service B : 5/6
 
-2. Create SOAP Train Booking service A : 3/4
+2. Create SOAP Train Booking service A : 0/4
 
-3. Interaction between two services : 2/4
+3. Interaction between two services : 3/4
 
 4. Test with Web service Client (instead of using Eclipse's Web service Explorer) : 2/2
 
