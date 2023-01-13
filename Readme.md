@@ -15,7 +15,7 @@ Projet Web Service - Hichem & Dimitri
 
 1. Clonez le repo
 
-2. Installer les dépendences
+2. Lancer 
 
 ## Utilisation
 1. Créez votre base de données dans MySQL :
