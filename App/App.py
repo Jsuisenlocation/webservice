@@ -195,7 +195,7 @@ def update():
 ##############################################################
 
 
-#@app.route("/delete/<string:id>", methods=["POST", "GET"])
+# @app.route("/delete/<string:id>", methods=["POST", "GET"])
 @app.route("/delete/<int:id>", methods=["DELETE"])
 def delete(id):
     flash("Donnée supprimée avec succès")
@@ -214,7 +214,7 @@ def delete(id):
 @app.route("/infosInsert/date/<string:date>")
 def update_selectDate(date):
     # 1. information utilisateur
-    #select_date = request.args.get("date", type=str)
+    # select_date = request.args.get("date", type=str)
     select_date = date
 
     #################################
@@ -250,7 +250,9 @@ def update_selectDepart(date, depart):
     )  # , train_selected = trainId_html, amountAllow = amount_html) #
 
 
-@app.route("/infosInsert/date/<string:date>/depart/<string:depart>/arrivee/<string:arrivee>")
+@app.route(
+    "/infosInsert/date/<string:date>/depart/<string:depart>/arrivee/<string:arrivee>"
+)
 def update_selectArrive(date, depart, arrivee):
     # 1. information utilisateur
     select_date = date
@@ -275,7 +277,9 @@ def update_selectArrive(date, depart, arrivee):
     return jsonify(train_opt=train_html, classe_opt=classe_html)
 
 
-@app.route("/infosInsert/date/<string:date>/depart/<string:depart>/arrivee/<string:arrivee>/trainid/<string:train_id>")
+@app.route(
+    "/infosInsert/date/<string:date>/depart/<string:depart>/arrivee/<string:arrivee>/trainid/<string:train_id>"
+)
 def update_seleTrainId(date, depart, arrivee, train_id):
     ###### update de la quantité et du prix
     # 1. information utilisateur
@@ -316,7 +320,9 @@ def update_seleTrainId(date, depart, arrivee, train_id):
                    affiche_prix="{}".format(prix))
 
 
-@app.route("/infosInsert/date/<string:date>/depart/<string:depart>/arrivee/<string:arrivee>/trainid/<string:train_id>/quantite/<string:quantite>")
+@app.route(
+    "/infosInsert/date/<string:date>/depart/<string:depart>/arrivee/<string:arrivee>/trainid/<string:train_id>/quantite/<string:quantite>"
+)
 def update_seleAmount(date, depart, arrivee, train_id, quantite):
     # select
     select_date = date
@@ -356,7 +362,9 @@ def update_seleAmount(date, depart, arrivee, train_id, quantite):
     return jsonify(affiche_prix="{}".format(prix))
 
 
-@app.route("/infosInsert/date/<string:date>/depart/<string:depart>/arrivee/<string:arrivee>/trainid/<string:train_id>/quantite/<string:quantite>/classe/<string:classe>")
+@app.route(
+    "/infosInsert/date/<string:date>/depart/<string:depart>/arrivee/<string:arrivee>/trainid/<string:train_id>/quantite/<string:quantite>/classe/<string:classe>"
+)
 def update_seleClasse(date, depart, arrivee, train_id, quantite, classe):
     # select
     select_date = date
@@ -386,4 +394,4 @@ def update_seleClasse(date, depart, arrivee, train_id, quantite, classe):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host="0.0.0.0")
