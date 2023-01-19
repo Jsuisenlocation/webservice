@@ -168,9 +168,9 @@ def insert():
 ##############################################################
 
 
-@app.route("/update", methods=["POST", "GET"])
+@app.route("/update", methods=["PUT"])
 def update():
-    if request.method == "POST":
+    if request.method == "PUT":
         data = request.form.to_dict()
         orderID = data["id"]
         Nom = data["Nom"]
@@ -195,7 +195,8 @@ def update():
 ##############################################################
 
 
-@app.route("/delete/<string:id>", methods=["POST", "GET"])
+#@app.route("/delete/<string:id>", methods=["POST", "GET"])
+@app.route("/delete/<int:id>", methods=["DELETE"])
 def delete(id):
     flash("Donnée supprimée avec succès")
     cursor = mysql.connection.cursor()
@@ -210,10 +211,11 @@ def delete(id):
 ##############################################################
 
 
-@app.route("/updateDrop/dateSelect")
-def update_selectDate():
+@app.route("/infosInsert/date/<string:date>")
+def update_selectDate(date):
     # 1. information utilisateur
-    select_date = request.args.get("date", type=str)
+    #select_date = request.args.get("date", type=str)
+    select_date = date
 
     #################################
     # 2. requête base de données
@@ -228,11 +230,11 @@ def update_selectDate():
     return jsonify(depart_option=depart_html)
 
 
-@app.route("/updateDrop/departSelect")
-def update_selectDepart():
+@app.route("/infosInsert/date/<string:date>/depart/<string:depart>")
+def update_selectDepart(date, depart):
     # 1. information utilisateur
-    select_date = request.args.get("date", type=str)
-    select_depart = request.args.get("select_depart", type=str)
+    select_date = date
+    select_depart = depart
     ##################################
     # 2. requête base de données
     sqlCondition = "Date = '" + select_date + "' AND Depart = '" + select_depart + "'"
@@ -248,12 +250,12 @@ def update_selectDepart():
     )  # , train_selected = trainId_html, amountAllow = amount_html) #
 
 
-@app.route("/updateDrop/arrivéSelect")
-def update_selectArrive():
+@app.route("/infosInsert/date/<string:date>/depart/<string:depart>/arrivee/<string:arrivee>")
+def update_selectArrive(date, depart, arrivee):
     # 1. information utilisateur
-    select_date = request.args.get("date", type=str)
-    select_depart = request.args.get("select_depart", type=str)
-    select_arrivée = request.args.get("select_arrivée", type=str)
+    select_date = date
+    select_depart = depart
+    select_arrivée = arrivee
     ##################################
     # 2. requête base de données
     sqlCondition = ("Date = '" + select_date + "' AND Depart = '" +
@@ -273,17 +275,15 @@ def update_selectArrive():
     return jsonify(train_opt=train_html, classe_opt=classe_html)
 
 
-@app.route("/updateDrop/trainSelect")
-def update_seleTrainId():
+@app.route("/infosInsert/date/<string:date>/depart/<string:depart>/arrivee/<string:arrivee>/trainid/<string:train_id>")
+def update_seleTrainId(date, depart, arrivee, train_id):
     ###### update de la quantité et du prix
     # 1. information utilisateur
-    select_date = request.args.get("date", type=str)
-    select_depart = request.args.get("select_depart", type=str)
-    select_arrivée = request.args.get("select_arrivée", type=str)
-    select_trainid = request.args.get("trainid", type=str)
-    select_quantite = request.args.get("quantité", type=str)
-    select_quantite = int(
-        select_quantite) if select_quantite is not None else 1
+    select_date = date
+    select_depart = depart
+    select_arrivée = arrivee
+    select_trainid = train_id
+    select_quantite = 1
     # ########## 2. Requête pour les places ##########
     sqlCondi1 = ("Date = '" + select_date + "' AND Depart = '" +
                  select_depart + "' AND Destination = '" + select_arrivée +
@@ -316,14 +316,14 @@ def update_seleTrainId():
                    affiche_prix="{}".format(prix))
 
 
-@app.route("/updateDrop/quantiteSelect")
-def update_seleAmount():
+@app.route("/infosInsert/date/<string:date>/depart/<string:depart>/arrivee/<string:arrivee>/trainid/<string:train_id>/quantite/<string:quantite>")
+def update_seleAmount(date, depart, arrivee, train_id, quantite):
     # select
-    select_date = request.args.get("date", type=str)
-    select_trainid = request.args.get("trainid", type=str)
-    select_depart = request.args.get("select_depart", type=str)
-    select_arrivée = request.args.get("select_arrivée", type=str)
-    select_quantite = request.args.get("quantité", type=str)
+    select_date = date
+    select_depart = depart
+    select_arrivée = arrivee
+    select_trainid = train_id
+    select_quantite = quantite
     select_quantite = int(
         select_quantite) if select_quantite is not None else 1
     ###################################################
@@ -356,14 +356,14 @@ def update_seleAmount():
     return jsonify(affiche_prix="{}".format(prix))
 
 
-@app.route("/updateDrop/classeSelect")
-def update_seleClasse():
+@app.route("/infosInsert/date/<string:date>/depart/<string:depart>/arrivee/<string:arrivee>/trainid/<string:train_id>/quantite/<string:quantite>/classe/<string:classe>")
+def update_seleClasse(date, depart, arrivee, train_id, quantite, classe):
     # select
-    select_date = request.args.get("date", type=str)
-    select_trainid = request.args.get("trainid", type=str)
-    select_depart = request.args.get("select_depart", type=str)
-    select_arrivée = request.args.get("select_arrivée", type=str)
-    select_quantite = request.args.get("quantité", type=str)
+    select_date = date
+    select_depart = depart
+    select_arrivée = arrivee
+    select_trainid = train_id
+    select_quantite = quantite
     select_quantite = int(
         select_quantite) if select_quantite is not None else 1
     ###################################################

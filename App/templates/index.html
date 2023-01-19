@@ -192,9 +192,8 @@
                 }).on("change", function() {
                     console.log("Génère Depuis");
                     $.getJSON(
-                        "/updateDrop/dateSelect",{
-                            date : $("#dataTbl tbody input[type=datetime]").val()
-                        }, function(data){ 
+                        "/infosInsert/date/" + $("#dataTbl tbody input[type=datetime]").val(),{}, 
+                        function(data){ 
                             $("#dataTbl tbody select[name=Depuis]").html(data.depart_option);
                         }
                     );
@@ -205,9 +204,8 @@
                 $("#dataTbl tbody select[name=Depuis]").on("change", function() {
                     if($("#dataTbl tbody select[name=Depuis]").val()!=null){
                         console.log("Génère Vers");
-                        $.getJSON('/updateDrop/departSelect', {
-                            date : $("#dataTbl tbody input[type=datetime]").val(),
-                            select_depart:$("#dataTbl tbody select[name=Depuis]").val(),
+                        $.getJSON('/infosInsert/date/'+$("#dataTbl tbody input[type=datetime]").val()+'/depart/'+$("#dataTbl tbody select[name=Depuis]").val(), {
+                          
                         }).success(function(data) {
                             $("#dataTbl tbody select[name=Vers]").html(data.arrivé_option);
                         })
@@ -217,10 +215,8 @@
                 $("#dataTbl tbody select[name=Vers]").on("change", function() {
                     if($("#dataTbl tbody select[name=Vers]").val()!=null){
                         console.log("Génère ID");
-                        $.getJSON('/updateDrop/arrivéSelect', {
-                            date : $("#dataTbl tbody input[type=datetime]").val(),
-                            select_depart:$("#dataTbl tbody select[name=Depuis]").val(),
-                            select_arrivée: $("#dataTbl tbody select[name=Vers]").val(),
+                        $.getJSON('/infosInsert/date/'+$("#dataTbl tbody input[type=datetime]").val()+'/depart/'+$("#dataTbl tbody select[name=Depuis]").val()+'/arrivee/'+$("#dataTbl tbody select[name=Vers]").val(), {
+                            
                         }).success(function(data) {
                             $("#dataTbl tbody select[name=ID]").html(data.train_opt);  
                             $("#dataTbl tbody select[name=classe]").html(data.classe_opt);                          
@@ -231,11 +227,8 @@
                 $("#dataTbl tbody select[name=ID]").on("change", function() {
                     if($("#dataTbl tbody select[name=ID]").val()!=null){
                         console.log("Génère Quantite and Prix");
-                        $.getJSON('/updateDrop/trainSelect', {
-                            date : $("#dataTbl tbody input[type=datetime]").val(),
-                            select_depart: $("#dataTbl tbody select[name=Depuis]").val(),
-                            select_arrivée: $("#dataTbl tbody select[name=Vers]").val(),
-                            trainid: $("#dataTbl tbody select[name=ID]").val()
+                        $.getJSON('/infosInsert/date/'+$("#dataTbl tbody input[type=datetime]").val()+'/depart/'+$("#dataTbl tbody select[name=Depuis]").val()+'/arrivee/'+$("#dataTbl tbody select[name=Vers]").val()+'/trainid/'+$("#dataTbl tbody select[name=ID]").val(), {
+                            
                         }).success(function(data) { 
                             if($("#dataTbl tbody td[id=Quantite] input[type=number]").val() > data.quantite_limit){
                                 $("#dataTbl tbody td[id=Quantite] input[type=number]").val(data.quantite_limit);
@@ -248,12 +241,8 @@
                 
                 // quantité -> prix
                 $("#dataTbl tbody td[id=Quantite] input[type=number]").on("change", function() {
-                    $.getJSON('/updateDrop/quantiteSelect', {
-                        date : $("#dataTbl tbody input[type=datetime]").val(),
-                        trainid: $("#dataTbl tbody select[name=ID]").val(),
-                        select_depart: $("#dataTbl tbody select[name=Depuis]").val(),
-                        select_arrivée: $("#dataTbl tbody select[name=Vers]").val(),
-                        quantité: $("#dataTbl tbody td[id=Quantite] input[type=number]").val()
+                    $.getJSON('/infosInsert/date/'+$("#dataTbl tbody input[type=datetime]").val()+'/depart/'+$("#dataTbl tbody select[name=Depuis]").val()+'/arrivee/'+$("#dataTbl tbody select[name=Vers]").val()+'/trainid/'+$("#dataTbl tbody select[name=ID]").val()+'/quantite/'+$("#dataTbl tbody td[id=Quantite] input[type=number]").val(), {
+                        
                     }).success(function(data) {
                         $("#dataTbl tbody tr[id=modification] [id=Total]").html(data.affiche_prix);
                     })
@@ -263,13 +252,8 @@
                 $("#dataTbl tbody select[name=classe]").on("change", function() {
                     if($("#dataTbl tbody select[name=classe]").val()!=null){
                         console.log("Génère classe and Prix");
-                        $.getJSON('/updateDrop/classeSelect', {
-                            date : $("#dataTbl tbody input[type=datetime]").val(),
-                            select_depart: $("#dataTbl tbody select[name=Depuis]").val(),
-                            select_arrivée: $("#dataTbl tbody select[name=Vers]").val(),
-                            trainid: $("#dataTbl tbody select[name=ID]").val(),
-                            quantité: $("#dataTbl tbody td[id=Quantite] input[type=number]").val(),
-                            classe: $("#dataTbl tbody select[name=classe]").val()
+                        $.getJSON('/infosInsert/date/'+$("#dataTbl tbody input[type=datetime]").val()+'/depart/'+$("#dataTbl tbody select[name=Depuis]").val()+'/arrivee/'+$("#dataTbl tbody select[name=Vers]").val()+'/trainid/'+$("#dataTbl tbody select[name=ID]").val()+'/quantite/'+$("#dataTbl tbody td[id=Quantite] input[type=number]").val()+'/classe/'+$("#dataTbl tbody select[name=classe]").val(), {
+                            
                         }).success(function(data) { 
                             $("#dataTbl tbody tr[id=modification] [id=Total]").html(data.affiche_prix); 
                         })
@@ -285,7 +269,7 @@
                 // onDelete
                 if (yes){ 
                     (function(){ 
-                        location.href = "/delete/"+no;
+                        fetch('/delete/'+no, {method: "DELETE"})
                     })();
                     var $row = $(bouton).parents('tr');
                     $row.remove();
@@ -598,12 +582,11 @@
             $( "#datepicker" ).datepicker({
                 changeMonth: false, 
                 changeYear: false, 
-                dateFormat: "yy/m/d",
+                dateFormat: "yy-m-d",
                 showButtonPanel: false,
             }).on("change", function() {
                 $.getJSON(
-                    "/updateDrop/dateSelect",{
-                    date : $("#datepicker").val()
+                    "/infosInsert/date/"+$("#datepicker").val(),{
                     }, function(data){ 
                         $('#depSelect').html(data.depart_option);
                     }
@@ -612,19 +595,16 @@
             
             
             $('#depSelect').change(function(){
-                $.getJSON('/updateDrop/departSelect', {
-                    date : $("#datepicker").val(),
-                    select_depart: $('#depSelect').val(),
+                $.getJSON('/infosInsert/date/'+$("#datepicker").val()+'/depart/'+$('#depSelect').val(), {
+                    
                 }).success(function(data) {
                     $('#arrSelect').html(data.arrivé_option);
                 })
             });
             
             $('#arrSelect').change(function(){
-                $.getJSON('/updateDrop/arrivéSelect', {
-                    date : $("#datepicker").val(),
-                    select_depart: $('#depSelect').val(),
-                    select_arrivée: $('#arrSelect').val(),
+                $.getJSON('/infosInsert/date/'+$("#datepicker").val()+'/depart/'+$('#depSelect').val()+'/arrivee/'+$('#arrSelect').val(), {
+                    
                 }).success(function(data) {
                     $('#trainid').html(data.train_opt);
                     $('#classe').html(data.classe_opt);
@@ -632,11 +612,8 @@
             });
             
              $('#trainid').change(function(){
-                $.getJSON('/updateDrop/trainSelect', {
-                    date : $("#datepicker").val(),
-                    select_depart: $('#depSelect').val(),
-                    select_arrivée: $('#arrSelect').val(),
-                    trainid: $('#trainid').val()
+                $.getJSON('/infosInsert/date/'+$("#datepicker").val()+'/depart/'+$('#depSelect').val()+'/arrivee/'+$('#arrSelect').val()+'/trainid/'+$('#trainid').val(), {
+                    
                 }).success(function(data) {
                     let htmlDat = '<option value="0">0</option>';
                     let max_allow_reserv = 5;
@@ -651,12 +628,8 @@
             });
             
             $('#quantité').change(function(){
-                $.getJSON('/updateDrop/quantiteSelect', {
-                    date : $("#datepicker").val(),
-                    trainid: $('#trainid').val(),
-                    select_depart: $('#depSelect').val(),
-                    select_arrivée: $('#arrSelect').val(),
-                    quantité: $('#quantité').val()
+                $.getJSON('/infosInsert/date/'+$("#datepicker").val()+'/depart/'+$('#depSelect').val()+'/arrivee/'+$('#arrSelect').val()+'/trainid/'+$('#trainid').val()+'/quantite/'+$('#quantité').val(), {
+                    
                 }).success(function(data) {
                     $('#aff_prix').text(data.affiche_prix);
                     $('#prix').val(data.affiche_prix);
@@ -664,13 +637,8 @@
             });
 
             $('#classe').change(function(){
-                $.getJSON('/updateDrop/classeSelect', {
-                    date : $("#datepicker").val(),
-                    trainid: $('#trainid').val(),
-                    select_depart: $('#depSelect').val(),
-                    select_arrivée: $('#arrSelect').val(),
-                    quantité: $('#quantité').val(),
-                    classe: $('#classe').val()
+                $.getJSON('/infosInsert/date/'+$("#datepicker").val()+'/depart/'+$('#depSelect').val()+'/arrivee/'+$('#arrSelect').val()+'/trainid/'+$('#trainid').val()+'/quantite/'+$('#quantité').val()+'/classe/'+$('#classe').val(), {
+                     
                 }).success(function(data) {
                     $('#aff_prix').text(data.affiche_prix);
                     $('#prix').val(data.affiche_prix);
