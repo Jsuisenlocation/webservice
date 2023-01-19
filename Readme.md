@@ -43,13 +43,13 @@ Projet Web Service - Hichem & Dimitri
 ## Auto-Evaluation
 1. Create REST Train Filtering service B : 5/6
 
-2. Create SOAP Train Booking service A : 2/4
+2. Create SOAP Train Booking service A : 0/4
 
-3. Interaction between two services : 3/4
+3. Interaction between two services (REST - REST): 2/4
 
-4. Test with Web service Client (instead of using Eclipse's Web service Explorer) : 2/2
+4. Test with Web service Client (instead of using Eclipse's Web service Explorer) (pas en java) : 2/2
 
-5. Work with complex data type (class, table, etc.) : 1/2
+5. Work with complex data type (class, table, etc.) : 2/2
 
 6. Work with database (in text file, xml, in mysql, etc.) : 2/2
 
